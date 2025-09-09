@@ -1,29 +1,18 @@
-import Image from "next/image";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { getById } from "@/src/services/polls";
+export const dynamic = "force-dynamic";
+import { getAll } from "@/src/services/polls";
+import CardPolls from "@/components/polls/card-polls";
 
 export default async function Home() {
-  const poll = await getById(2);
+  const polls = await getAll();
+  console.log("polls:", polls);
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card Description</CardDescription>
-        <CardAction>Card Action</CardAction>
-      </CardHeader>
-      <CardContent>{JSON.stringify(poll, null, 2)}</CardContent>
-      <CardFooter>
-        <p>Card Footer</p>
-      </CardFooter>
-    </Card>
-  );
+    <div className="container mx-auto p-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {polls?.polls?.map((p) => (
+          <CardPolls key={p.id} poll={{ poll: p }} />
+        ))}
+      </div>
+    </div>
+  )
 }

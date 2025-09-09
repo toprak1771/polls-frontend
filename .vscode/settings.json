@@ -1,0 +1,17 @@
+{
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.suggest.showSnippets": true,
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.includeLanguages": {
+    "typescriptreact": "html",
+    "javascript": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["cn\\(([^)]*)\\)", "[\\\"'`]([^\\\"'`]*)[\\\"'`]"] ,
+    ["clsx\\(([^)]*)\\)", "[\\\"'`]([^\\\"'`]*)[\\\"'`]"] ,
+    ["cva\\(([^)]*)\\)", "[\\\"'`]([^\\\"'`]*)[\\\"'`]"]
+  ]
+}
