@@ -11,7 +11,7 @@ export async function getById(id: number): Promise<PollData> {
     return data;
 }
 
-export async function vote(id:string | number, optionId:string | number): Promise<Poll> {
+export async function vote(id: number, optionId: string): Promise<Poll> {
     const {data} = await api.post(`/polls/${id}/vote`, {optionId});
     return data;
 }
