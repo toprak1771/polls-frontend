@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Polls Frontend (Next.js + Tailwind v4)
+
+A simple polls application frontend built with Next.js App Router, Tailwind CSS v4, and TypeScript.
+
+## Features
+- Dynamic routes with App Router (`app/polls/[id]`)
+- Server-rendered and client components
+- API client with Axios and environment-based base URL
+- Tailwind v4 zero-config with PostCSS
+- Optimistic voting UI with rollback
+
+## Requirements
+- Node.js 18+ (recommended LTS)
 
 ## Getting Started
+Install dependencies:
 
-First, run the development server:
+```bash
+npm install
+```
+
+Create a local env file:
+
+```bash
+cp .env.local .env.local.example # optional: share template
+```
+
+Edit `.env.local` and set your API base URL:
+
+```bash
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
+```
+
+Run the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
+- `npm run dev`: Start Next.js (Turbopack)
+- `npm run build`: Production build
+- `npm start`: Start production server
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
+- Next.js 15 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS v4 (`@tailwindcss/postcss`)
+- Axios
 
-## Learn More
+## Project Structure
+```
+app/
+  page.tsx                 # Polls list (responsive grid)
+  polls/[id]/page.tsx      # Poll detail page
+src/
+  components/
+    polls/
+      card-polls.tsx       # Poll summary card (client, optimistic vote)
+      poll-detail-client.tsx # Client detail table (optimistic vote)
+    ui/                    # UI primitives
+  services/
+    http.tsx               # Axios instance (uses env base URL)
+    polls.tsx              # Polls API (getAll, getById, vote)
+  types/
+    polls.tsx              # Type definitions
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Tailwind
+- Config-less v4 via `postcss.config.mjs` and `app/globals.css` (`@import "tailwindcss"`).
+- IntelliSense: workspace `.vscode/settings.json` enables suggestions inside `className` and `cn/clsx/cva`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment
+- `NEXT_PUBLIC_API_BASE_URL` is required by the Axios client (`src/services/http.tsx`).
+- Update and restart the dev server after changing env values.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+- The detail page can fetch on the server or client. Current setup uses a server wrapper page and a client table for dynamic fetching and optimistic updates.
